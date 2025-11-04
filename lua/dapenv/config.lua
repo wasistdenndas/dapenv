@@ -1,7 +1,9 @@
 ---@class DapEnvConfig
 local M = {}
 
-M.options = {}
+M.options = {
+	substitution = true,
+}
 
 --@param opts table|nil The options table passed from the user's setup call
 function M.setup(opts)

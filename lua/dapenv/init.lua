@@ -116,14 +116,19 @@ function M.get_env_from_files(dap_config)
 	end
 
 	local loaded_vars = load_vars_from_files(env_files_to_load)
-	return substitute_vars(loaded_vars)
+
+	if config.options.substitution then
+		return substitute_vars(loaded_vars)
+	end
+
+	return loaded_vars
 end
 
 --- Setup function for user configuration.
 --- This function will now patch dap.run to intercept debug sessions.
 ---@param opts table|nil User-provided options.
 function M.setup(opts)
-	config.setup(opts)
+	config.setup(opts or {})
 
 	-- Use VimEnter to ensure all plugins, including nvim-dap, are fully loaded and configured.
 	vim.api.nvim_create_autocmd("VimEnter", {
